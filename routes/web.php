@@ -1,11 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-});
+Route::get('/', [AuthController::class, 'loginForm']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/dashboard', [AuthController::class, 'dashboard']);
