@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |-----------------------------
@@ -38,3 +40,13 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])
 |-----------------------------
 */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+/*
+|-----------------------------
+| USER
+|-----------------------------
+*/
+// Ruta para ver la lista o el control de datos del usuario
+
+Route::get('/perfil', [UserController::class, 'index'])->name('usuarios.user');
+Route::put('/perfil/actualizar', [UserController::class, 'update'])->name('usuarios.update');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard SIGEJUB - Sistema de Jubilaciones</title>
+    <title>SIGEJUB - Sistema de Jubilaciones</title>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -43,17 +43,25 @@
         </ul>
     </nav>
 
-    <div class="sidebar-footer" style="padding: 20px;">
-        <div class="user-profile-mini" style="display: flex; align-items: center; gap: 10px;">
-            <div class="avatar" style="width: 35px; height: 35px; border-radius: 50%; background: #eee; display:flex; align-items:center; justify-content:center;">
-                <i data-lucide="user" size="18"></i>
-            </div>
-            <div>
-                <p style="margin:0; font-size: 0.85rem; font-weight: bold;">{{ Auth::user()->name }}</p>
-                <span style="font-size: 0.75rem; color: #666;">{{ Auth::user()->role }}</span>
-            </div>
+    <div class="sidebar-footer" style="padding: 20px; border-top: 1px solid #eee;">
+    <a href="{{ route('usuarios.user') }}" class="user-profile-mini" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; padding: 8px; border-radius: 8px; transition: background 0.2s;">
+        <style>
+            .user-profile-mini:hover { background-color: #f1f5f9; }
+        </style>
+        
+        <div class="avatar" style="width: 35px; height: 35px; border-radius: 50%; background: #dbeafe; color: #1e3a8a; display:flex; align-items:center; justify-content:center;">
+            <i data-lucide="settings" size="18"></i>
         </div>
-    </div>
+        
+        <div style="flex-grow: 1;">
+            <p style="margin:0; font-size: 0.85rem; font-weight: bold; line-height: 1;">{{ Auth::user()->name }}</p>
+            <span style="font-size: 0.75rem; color: #666;">Gestionar cuenta</span>
+        </div>
+        
+        <i data-lucide="chevron-right" size="14" style="color: #94a3b8;"></i>
+    </a>
+</div>
+
 </aside>
 
 <main class="main-content">
@@ -75,7 +83,7 @@
     <!-- Encabezado -->
     <header class="welcome-header">
         <div class="welcome-text">
-            <p class="subtitle">Bienvenido de nuevo,</p>
+            <p class="subtitle"></p>
             <h1>Panel de Gestión Integral</h1>
         </div>
         <button class="btn-primary" onclick="switchTab('solicitudes')">
