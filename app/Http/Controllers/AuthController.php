@@ -37,17 +37,26 @@ class AuthController extends Controller
     }
 
     // 👤 REGISTRAR USUARIO
-    public function register(Request $request)
-    {
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role ?? 'analista'
-        ]);
+ public function register(Request $request)
+{
+    // Es recomendable validar los datos antes de crear
+   /* $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6',
+        'role' => 'required' // Asegura que el rol sea obligatorio
+    ]);*/
 
-        return redirect('login');
-    }
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        // Eliminamos el ?? 'analista' para que use lo que viene del formulario
+        'role' => $request->role 
+    ]);
+
+    return redirect('login')->with('success', 'Usuario registrado correctamente');
+}
 
     // 🏠 DASHBOARD
     public function dashboard()
