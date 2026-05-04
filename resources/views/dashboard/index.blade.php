@@ -779,9 +779,20 @@
             <p>Visualización y análisis de datos del sistema institucional</p>
         </div>
         <div class="header-actions">
-            <button class="btn-outline-white"><i data-lucide="file-spreadsheet"></i> Exportar a Excel</button>
-            <button class="btn-primary-dark"><i data-lucide="file-text"></i> Exportar a PDF</button>
-        </div>
+    
+            <div class="actions-group">
+                <!-- Botón Excel -->
+                <button class="btn-export-excel">
+                    <i data-lucide="file-spreadsheet"></i>
+                    <span>Exportar a Excel</span>
+                </button>
+
+                <!-- Botón PDF (Asegúrate que tenga su propia clase de estilo) -->
+                <button class="btn-export-pdf">
+                    <i data-lucide="file-text"></i>
+                    <span>Exportar a PDF</span>
+                </button>
+            </div>
     </header>
 
     <!-- Barra de Filtros -->

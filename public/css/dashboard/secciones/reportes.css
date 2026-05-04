@@ -145,3 +145,87 @@
 .badge-time { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
 .badge-time.green { background: #dcfce7; color: #166534; }
 .badge-time.blue { background: #dbeafe; color: #1e40af; }
+
+
+.btn-export-excel {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #16a34a; /* Verde Excel */
+    border: 1px solid #dcfce7; /* Borde verde muy suave */
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-export-excel i {
+    color: #16a34a;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.btn-export-excel:hover {
+    background-color: #16a34a; /* Cambia a verde */
+    color: #ffffff; /* Texto a blanco */
+    border-color: #16a34a;
+    box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-export-excel:hover i {
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Efecto al hacer clic (Active) */
+.btn-export-excel:active {
+    transform: translateY(0);
+}
+
+
+.btn-export-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #ffffff; /* Fondo blanco para que no sature */
+    color: #dc2626; /* El nuevo color rojo */
+    border: 1px solid #fee2e2; /* Borde rojo muy clarito */
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Efecto Hover para el Rojo */
+.btn-export-pdf:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+    box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.2);
+    transform: translateY(-2px);
+}
+
+
+/* Contenedor para que no estén pegados */
+.actions-group {
+    display: flex;
+    gap: 12px; /* Espacio exacto entre botones */
+    flex-wrap: wrap; /* Si no caben, se bajan solos sin romperse */
+    margin-bottom: 20px;
+}
+
+/* Si prefieres que estén uno debajo del otro pero con espacio */
+.actions-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content; /* Para que no ocupen todo el ancho si no quieres */
+}
+
