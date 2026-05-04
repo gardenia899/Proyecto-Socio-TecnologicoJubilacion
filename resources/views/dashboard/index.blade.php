@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGEJUB - Sistema de Jubilaciones</title>
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/dashboard.css') }}">
+    <!-- Estilos Base y Layout -->
+    <link rel="stylesheet" href="{{ asset('css/dashboard/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/components.css') }}">
+
+    <!-- Estilos por Sección -->
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/solicitud.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/expediente.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/trabajadores.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/prestaciones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/reportes.css') }}">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Estilos rápidos para funcionalidad de pestañas */
@@ -369,66 +382,31 @@
             <h1>Gestión de <span class="text-blue-accent">Solicitudes</span></h1>
             <p>Administre y procese nuevas peticiones de retiro institucional.</p>
         </div>
+        <!-- Botón que activa el Modal -->
+        <div class="header-actions">
+            <button type="button" class="btn-primary-dark" onclick="abrirModal()">
+                <i data-lucide="plus-circle" size="20"></i> Nueva Solicitud
+            </button>
+        </div>
     </header>
 
-    <!-- Formulario Crear Nueva Solicitud -->
-    <section class="form-card">
-        <div class="form-card-title">
-            <div class="icon-plus-bg"><i data-lucide="plus" size="16"></i></div>
-            <h2>Crear Nueva Solicitud</h2>
-        </div>
-        <form class="quick-form">
-            <div class="input-grid">
-                <div class="form-group">
-                    <label>Seleccionar Trabajador</label>
-                    <div class="input-with-icon">
-                        <input type="text" placeholder="Dr. Roberto Hernández">
-                        <i data-lucide="user-search" size="16"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Período de Jubilación</label>
-                    <div class="input-with-icon">
-                        <input type="text" placeholder="Otoño 2024">
-                        <i data-lucide="calendar-range" size="16"></i>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Fecha de Solicitud</label>
-                    <input type="date">
-                </div>
-                <div class="form-group">
-                    <label>Decisión Inicial</label>
-                    <div class="input-with-icon">
-                        <input type="text" value="Pendiente de Revisión" readonly>
-                        <i data-lucide="flag" size="16"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="form-actions">
-                <button type="reset" class="btn-link">Limpiar</button>
-                <button type="submit" class="btn-primary-dark">
-                    <i data-lucide="save" size="18"></i> Registrar Solicitud
-                </button>
-            </div>
-        </form>
-    </section>
-
-    <!-- Listado de Solicitudes -->
-    <section class="list-container">
         <div class="list-header">
             <div class="list-title-area">
-                <h2>Listado de Solicitudes</h2>
-                <div class="tab-filters">
-                    <button class="active">Todas</button>
-                    <button>Pendientes</button>
-                    <button>Aprobadas</button>
-                    <button>Rechazadas</button>
+                <h2 style="font-size: 1.5rem; color: #0f172a;">Listado de Solicitudes</h2>
+                <div class="tab-filters" id="statusFilters">
+                    <button class="active" data-status="all">Todas</button>
+                    <button data-status="pending">Pendientes</button>
+                    <button data-status="approved">Aprobadas</button>
+                    <button data-status="rejected">Rechazadas</button>
                 </div>
             </div>
             <div class="list-actions">
-                <button class="btn-outline"><i data-lucide="sliders-horizontal" size="16"></i> Filtros Avanzados</button>
-                <button class="btn-outline"><i data-lucide="download" size="16"></i> Exportar</button>
+                <button class="btn-outline">
+                    <i data-lucide="sliders-horizontal" size="16"></i> Filtros Avanzados
+                </button>
+                <button class="btn-outline">
+                    <i data-lucide="download" size="16"></i> Exportar
+                </button>
             </div>
         </div>
 
@@ -444,6 +422,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- ... Filas de la tabla (mantener igual) ... -->
                 <tr>
                     <td class="folio">#SOL-2024-001</td>
                     <td>
@@ -460,40 +439,9 @@
                         <i data-lucide="edit-2"></i>
                     </td>
                 </tr>
-                <tr>
-                    <td class="folio">#SOL-2024-002</td>
-                    <td>
-                        <div class="worker-info">
-                            <strong>Mtra. Elena Gómez</strong>
-                            <span>Dpto. de Humanidades</span>
-                        </div>
-                    </td>
-                    <td>12 Oct 2023</td>
-                    <td>Otoño 2024</td>
-                    <td><span class="badge-status approved">APROBADA</span></td>
-                    <td class="actions">
-                        <i data-lucide="eye"></i>
-                        <i data-lucide="file-text"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="folio">#SOL-2024-003</td>
-                    <td>
-                        <div class="worker-info">
-                            <strong>Ing. Carlos Ruiz</strong>
-                            <span>Ciencias Exactas</span>
-                        </div>
-                    </td>
-                    <td>08 Oct 2023</td>
-                    <td>Primavera 2025</td>
-                    <td><span class="badge-status rejected">RECHAZADA</span></td>
-                    <td class="actions">
-                        <i data-lucide="eye"></i>
-                        <i data-lucide="alert-triangle"></i>
-                    </td>
-                </tr>
             </tbody>
         </table>
+        
         <div class="table-footer">
             <span>Mostrando 1 - 4 de 24 solicitudes</span>
             <div class="pagination">
@@ -533,155 +481,148 @@
 </div>
 
 
-
-   <!-- SECCIÓN 4: EXPEDIENTES (Basado en screen1.jpg) -->
+ <!-- SECCIÓN 4: EXPEDIENTES -->
 <div id="expedientes" class="content-section">
-    <!-- Migas de pan y Acciones superiores -->
-    <div class="breadcrumb-area">
-        <span class="breadcrumb">Expedientes > <strong>Detalle de Expediente #EXP-2024-089</strong></span>
-        <div class="header-actions">
-            <button class="btn-outline"><i data-lucide="printer"></i> Imprimir</button>
-            <button class="btn-primary-dark"><i data-lucide="edit-3"></i> Editar Expediente</button>
+    
+    <!-- NIVEL 1: VISTA DE TODAS LAS TARJETAS (Se muestra por defecto) -->
+    <div id="expedientes-lista">
+        <div class="section-header-flex">
+            <h1 class="page-title">Gestión de Expedientes Digitales</h1>
+            <div class="search-container">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Buscar expediente por nombre o cédula...">
+            </div>
+        </div>
+
+            <div class="expediente-mini-card" onclick="verDetalleExpediente('Ricardo Mendoza')">
+            <!-- Parte de la Imagen -->
+            <div class="card-image-top">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ricardo" alt="Foto">
+            </div>
+            
+            <!-- Parte de los Datos -->
+            <div class="card-info-bottom">
+                <strong>Ricardo Mendoza</strong>
+                <span>V-12.456.789</span>
+                <div class="card-status-pill pending">En Revisión</div>
+            </div>
+        </div>
+            <!-- Repetir tarjetas para otros trabajadores... -->
         </div>
     </div>
 
-    <h1 class="page-title">Expediente: Roberto Martínez</h1>
-
-    <div class="expediente-grid">
-        <!-- Columna Izquierda: Perfil y Requisitos -->
-        <aside class="side-panel">
-            <div class="profile-card">
-                <div class="profile-img-container">
-                    <!-- Imagen de ejemplo del trabajador -->
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Roberto" alt="Perfil" class="profile-main-img">
-                    <div class="verified-badge"><i data-lucide="check"></i></div>
+    <!-- NIVEL 2: VISTA DE DETALLE (Oculta por defecto) -->
+    <div id="expediente-detalle" style="display: none;">
+    <!-- Encabezado Superior -->
+    <header class="expediente-header">
+        <div class="header-left">
+            <nav class="breadcrumb">EXPEDIENTES > <span>GESTIÓN DE DOCUMENTOS</span></nav>
+            <h1>Expediente Digital: <span id="nombre-empleado-header">Ricardo M.</span></h1>
+        </div>
+        <div class="header-right">
+            <div class="global-status-card">
+                <div class="status-info">
+                    <span class="label">ESTADO GLOBAL</span>
+                    <span class="value incomplete">Incompleto (3/5)</span>
                 </div>
-                <h3>Roberto Martínez</h3>
-                <p class="role-text">Docente Titular - Facultad de Ingeniería</p>
-                
-                <div class="info-mini-grid">
-                    <div class="info-box">
-                        <span class="label">CÉDULA</span>
-                        <span class="val">1-0943-0231</span>
+                <div class="status-chart">
+                    <span class="pct">60%</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="gestion-container">
+        <!-- Columna Izquierda: Perfil y Asistente -->
+        <aside class="gestion-sidebar">
+            <div class="profile-summary-card">
+                <div class="user-main-info">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ricardo" class="img-profile-sm">
+                    <div class="user-texts">
+                        <h3>Ricardo Mendoza</h3>
+                        <span>V-12.456.789</span>
+                        <span class="facultad-badge">FACULTAD DE INGENIERÍA</span>
                     </div>
-                    <div class="info-box">
-                        <span class="label">ANTIGÜEDAD</span>
-                        <span class="val">28 Años</span>
-                    </div>
-                    <div class="info-box">
-                        <span class="label">TIPO DE JUB.</span>
-                        <span class="val">Ordinaria</span>
-                    </div>
-                    <div class="info-box">
-                        <span class="label">ESTATUS</span>
-                        <span class="val text-blue">En Trámite</span>
-                    </div>
+                </div>
+                <div class="user-details-list">
+                    <div class="detail-item"><span>Años de Servicio</span> <strong>28 Años</strong></div>
+                    <div class="detail-item"><span>Cargo Actual</span> <strong>Titular IV</strong></div>
+                    <div class="detail-item"><span>Fecha de Solicitud</span> <strong>12 Oct 2023</strong></div>
                 </div>
             </div>
 
-            <div class="requirements-card">
-                <h3>ESTADO DE REQUISITOS</h3>
-                <div class="chart-progress-area">
-                    <div class="circular-progress">
-                        <span class="progress-text">4/6</span>
+            <div class="asistente-carga-card">
+                <h4>Asistente de Carga</h4>
+                <p>Arrastre aquí los archivos PDF para una clasificación automática por IA institucional.</p>
+                <div class="drop-zone-blue">
+                    <div class="drop-icon-box">
+                        <i data-lucide="upload"></i>
                     </div>
-                    <div class="progress-details">
-                        <strong>Requisitos Cumplidos</strong>
-                        <p>Pendiente: Certificado Médico y Acta de Nacimiento Original.</p>
-                    </div>
+                    <span>SOLTAR ARCHIVOS</span>
                 </div>
             </div>
+            
+            <button class="btn-back-minimal" onclick="volverALista()">
+                <div class="icon-circle">
+                    <i data-lucide="chevron-left"></i>
+                </div>
+                <span>Volver al listado</span>
+            </button>
         </aside>
 
-        <!-- Columna Derecha: Avance, Datos y Documentos -->
-        <main class="main-panel">
-            <!-- Banner de Avance -->
-            <div class="status-banner-dark">
-                <div class="banner-top">
-                    <div class="status-label">
-                        <i data-lucide="check-circle-2"></i>
-                        <span>Avance del Proceso</span>
-                    </div>
-                    <button class="btn-glass">Ver Solicitud <i data-lucide="external-link"></i></button>
+        <!-- Columna Derecha: Listado de Documentos -->
+        <main class="gestion-content">
+            <div class="docs-card-container">
+                <div class="docs-header-flex">
+                    <h3>LISTADO DE DOCUMENTOS OBLIGATORIOS</h3>
+                    <button class="btn-history"><i data-lucide="history"></i> Historial de Cambios</button>
                 </div>
-                <div class="progress-container-large">
-                    <div class="progress-fill" style="width: 75%;"></div>
-                </div>
-                <p class="update-text">75% Completado — Última actualización hace 2 días</p>
-            </div>
 
-            <!-- Datos Personales -->
-            <div class="data-card-white">
-                <div class="card-header-icon">
-                    <i data-lucide="user"></i> <h3>DATOS PERSONALES</h3>
-                </div>
-                <div class="personal-data-grid">
-                    <div class="data-item">
-                        <label>NOMBRE COMPLETO</label>
-                        <p>Roberto Martínez Valenzuela</p>
+                <div class="docs-list">
+                    <!-- Fila Documento: Cargado -->
+                    <div class="doc-item-row">
+                        <div class="doc-icon success"><i data-lucide="user-check"></i></div>
+                        <div class="doc-info">
+                            <h4>Cédula de Identidad</h4>
+                            <span class="status-tag success">● CARGADO <small>Verificado hace 2 días</small></span>
+                        </div>
+                        <div class="doc-btns">
+                            <button class="btn-view"><i data-lucide="eye"></i></button>
+                            <button class="btn-action-outline">REEMPLAZAR</button>
+                        </div>
                     </div>
-                    <div class="data-item">
-                        <label>CORREO ELECTRÓNICO</label>
-                        <p>r.martinez@universidad.edu.mx</p>
-                    </div>
-                    <div class="data-item">
-                        <label>FECHA DE NACIMIENTO</label>
-                        <p>15 de Agosto, 1964</p>
-                    </div>
-                    <div class="data-item">
-                        <label>TELÉFONO DE CONTACTO</label>
-                        <p>+52 555 123 4567</p>
-                    </div>
-                    <div class="data-item full-width">
-                        <label>DIRECCIÓN DE RESIDENCIA</label>
-                        <p>Av. de los Insurgentes Sur 1420, Ciudad de México</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Listado de Documentos -->
-            <div class="documents-card">
-                <div class="card-header-flex">
-                    <div class="card-header-icon">
-                        <i data-lucide="file-text"></i> <h3>DOCUMENTOS CARGADOS</h3>
+                    <!-- Fila Documento: Pendiente -->
+                    <div class="doc-item-row">
+                        <div class="doc-icon gray"><i data-lucide="file-text"></i></div>
+                        <div class="doc-info">
+                            <h4>Oficio de Solicitud</h4>
+                            <span class="status-tag pending">● PENDIENTE <small>Requerido para avanzar</small></span>
+                        </div>
+                        <div class="doc-btns">
+                            <button class="btn-action-primary"><i data-lucide="upload"></i> SUBIR ARCHIVO</button>
+                        </div>
                     </div>
-                    <span class="status-tag success">Validando Documentación</span>
+
+                    <!-- Fila Documento: Rechazado -->
+                    <div class="doc-item-row error">
+                        <div class="doc-icon danger"><i data-lucide="file-x"></i></div>
+                        <div class="doc-info">
+                            <h4>Punto de Cuenta</h4>
+                            <span class="status-tag danger">● RECHAZADO <small>"Firma del Rector ausente"</small></span>
+                        </div>
+                        <div class="doc-btns">
+                            <button class="btn-action-primary"><i data-lucide="upload"></i> CORREGIR</button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="doc-list">
-                    <!-- Documento 1 -->
-                    <div class="doc-item">
-                        <div class="doc-icon checked"><i data-lucide="check"></i></div>
-                        <div class="doc-info">
-                            <strong>Cédula de Identidad Anverso/Reverso</strong>
-                            <span>PDF • 1.2 MB • Cargado el 12/03/2024</span>
-                        </div>
+
+                <div class="docs-footer">
+                    <div class="footer-text">
+                        <strong>Resumen de Cumplimiento</strong>
+                        <p>Faltan 2 documentos obligatorios para completar el expediente.</p>
                     </div>
-                    <!-- Documento 2 -->
-                    <div class="doc-item">
-                        <div class="doc-icon checked"><i data-lucide="check"></i></div>
-                        <div class="doc-info">
-                            <strong>Certificación de Haberes (Últimos 10 años)</strong>
-                            <span>XLSX • 4.5 MB • Cargado el 14/03/2024</span>
-                        </div>
-                    </div>
-                    <!-- Documento 3 -->
-                    <div class="doc-item">
-                        <div class="doc-icon checked"><i data-lucide="check"></i></div>
-                        <div class="doc-info">
-                            <strong>Historial de Cargos y Funciones</strong>
-                            <span>PDF • 850 KB • Cargado el 15/03/2024</span>
-                        </div>
-                    </div>
-                    <!-- Documento Pendiente -->
-                    <div class="doc-item pending">
-                        <div class="doc-icon waiting"><i data-lucide="more-horizontal"></i></div>
-                        <div class="doc-info">
-                            <strong>Acta de Nacimiento Original</strong>
-                            <span>Esperando documento físico o carga digital...</span>
-                        </div>
-                        <button class="btn-subir">Subir ahora</button>
-                    </div>
+                    <button class="btn-finalize" disabled>FINALIZAR EXPEDIENTE</button>
                 </div>
             </div>
         </main>
@@ -1007,33 +948,185 @@
     </form>
 </main>
 
-<script>
-    // Inicializar iconos
-    lucide.createIcons();
+<!-- Modal de Registro de Solicitud -->
+<div id="modalSolicitud" class="modal-overlay">
+    <div class="modal-container">
+        <!-- Lado Izquierdo: Info Visual -->
+        <aside class="modal-sidebar">
+            <span class="badge-new">NUEVO REGISTRO</span>
+            <h1>Registro de Solicitud de Jubilación</h1>
+            <p>Complete cuidadosamente todos los campos requeridos para iniciar el proceso de retiro administrativo del trabajador.</p>
+            
+            <div class="modal-info-list">
+                <div class="info-item">
+                    <i data-lucide="info"></i>
+                    <span>Los documentos PDF deben ser legibles y estar actualizados.</span>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="shield-check"></i>
+                    <span>Este proceso cumple con la normativa de seguridad de datos institucionales.</span>
+                </div>
+            </div>
+        </aside>
 
-    // Lógica de navegación entre secciones
-    const menuItems = document.querySelectorAll('.menu-item');
-    const sections = document.querySelectorAll('.content-section');
+        <!-- Lado Derecho: Formulario -->
+        <main class="modal-form-content">
+            <form id="formNuevaJubilacion">
+                <!-- Información General -->
+                <section class="form-section">
+                    <h3><i data-lucide="file-text"></i> Información General</h3>
+                    <div class="form-row-3">
+                        <div class="input-group">
+                            <label>INGRESE LA CÉDULA</label>
+                            <select name="cedula"><option>Seleccione...</option></select>
+                        </div>
+                        <div class="input-group">
+                            <label>FECHA SOLICITUD</label>
+                            <input type="date">
+                        </div>
+                        <div class="input-group">
+                            <label>PERIODO</label>
+                            <select><option>2024 - A</option></select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>TIPO DE JUBILACIÓN</label>
+                        <select><option>Edad Avanzada</option></select>
+                    </div>
+                </section>
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const target = item.getAttribute('data-target');
-            switchTab(target);
-        });
-    });
+                <!-- Datos Personales -->
+                <section class="form-section">
+                    <h3><i data-lucide="user"></i> Datos Personales</h3>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>NOMBRE COMPLETO</label>
+                            <input type="text" placeholder="Ej: Carlos Eduardo Méndez">
+                        </div>
+                        <div class="input-group">
+                            <label>CÉDULA</label>
+                            <input type="text" placeholder="V-00.000.000">
+                        </div>
+                    </div>
+                    <div class="form-row-3">
+                        <div class="input-group">
+                            <label>FECHA NACIMIENTO</label>
+                            <input type="date">
+                        </div>
+                        <div class="input-group">
+                            <label>EDAD CALCULADA</label>
+                            <input type="text" readonly placeholder="62 años">
+                        </div>
+                        <div class="input-group">
+                            <label>ESTADO CIVIL</label>
+                            <select><option>Soltero/a</option></select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>DIRECCIÓN DE HABITACIÓN</label>
+                        <input type="text">
+                    </div>
+                </section>
 
-    function switchTab(id) {
-        // Remover clases activas
-        menuItems.forEach(i => i.classList.remove('active'));
-        sections.forEach(s => s.classList.remove('active'));
+               <!-- SECCIÓN: DATOS LABORALES -->
+            <section class="form-section">
+                <h3><i data-lucide="briefcase"></i> Datos Laborales</h3>
+                <div class="form-row-2">
+                    <div class="input-group">
+                        <label>N° EMPLEADO</label>
+                        <input type="text" placeholder="000000">
+                    </div>
+                    <div class="input-group">
+                        <label>CARGO ACTUAL</label>
+                        <input type="text" placeholder="Ej: Analista de Sistemas">
+                    </div>
+                </div>
+                <div class="form-row-3">
+                    <div class="input-group">
+                        <label>TIPO TRABAJADOR</label>
+                        <select><option>Fijo</option><option>Contratado</option></select>
+                    </div>
+                    <div class="input-group">
+                        <label>FECHA INGRESO</label>
+                        <input type="date">
+                    </div>
+                    <div class="input-group">
+                        <label>FECHA EGRESO</label>
+                        <input type="date">
+                    </div>
+                </div>
+                <div class="form-row-2">
+                    <div class="input-group">
+                        <label>AÑOS SERV. CALC.</label>
+                        <input type="text" readonly value="25 años" class="input-readonly">
+                    </div>
+                    <div class="input-group">
+                        <label>DEPARTAMENTO</label>
+                        <input type="text" placeholder="Ej: Recursos Humanos">
+                    </div>
+                </div>
+            </section>
 
-        // Activar la seleccionada
-        document.querySelector(`[data-target="${id}"]`).classList.add('active');
-        document.getElementById(id).classList.add('active');
+            <!-- SECCIÓN: DOCUMENTOS (Actualizada) -->
+            <section class="form-section">
+                <h3><i data-lucide="file-check"></i> Documentos Requeridos</h3>
+                <div class="docs-grid">
+                    <label class="doc-item"><input type="checkbox"> Cédula Identidad <span class="upload-link"><i data-lucide="upload"></i> PDF</span></label>
+                    <label class="doc-item"><input type="checkbox"> Acta Nacimiento <span class="upload-link"><i data-lucide="upload"></i> PDF</span></label>
+                    <label class="doc-item"><input type="checkbox"> Constancia Trabajo <span class="upload-link"><i data-lucide="upload"></i> PDF</span></label>
+                    <label class="doc-item"><input type="checkbox"> Constancia Antigüedad <span class="upload-link"><i data-lucide="upload"></i> PDF</span></label>
+                    <label class="doc-item"><input type="checkbox"> Últimos Recibos <span class="upload-link"><i data-lucide="upload"></i> PDF</span></label>
+                    <label class="doc-item"><input type="checkbox"> Certificado Salarial <span class="upload-link"><i data-lucide="upload"></i> PDF</span></label>
+                </div>
+            </section>
 
-        // Refrescar iconos por si hay nuevos en la sección
-        lucide.createIcons();
-    }
-</script>
+            <!-- SECCIÓN: BENEFICIARIOS -->
+            <section class="form-section">
+                <div class="section-header-inline">
+                    <h3><i data-lucide="users"></i> Beneficiarios</h3>
+                    <button type="button" class="btn-add-small">AÑADIR BENEFICIARIO</button>
+                </div>
+                <table class="mini-table">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>CÉDULA</th>
+                            <th>PARENTESCO</th>
+                            <th>TELÉFONO</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Elena Ramírez</td>
+                            <td>V-12.345.678</td>
+                            <td>Cónyuge</td>
+                            <td>0414-1234567</td>
+                            <td><button class="btn-del"><i data-lucide="trash-2" size="14"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+<!-- SECCIÓN: OBSERVACIONES -->
+<section class="form-section">
+    <h3><i data-lucide="align-left"></i> Observaciones</h3>
+    <textarea class="form-textarea" placeholder="Indique cualquier detalle adicional relevante para el trámite..."></textarea>
+</section>
+
+                <!-- Footer del Formulario -->
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-submit">Registrar Solicitud</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+
+<script src="{{ asset('js/sesion2.js') }}"></script>
+<script src="{{ asset('js/tabla1.js') }}"></script>
+<script src="{{ asset('js/expedientelevel1.js') }}"></script>
+
 </body>
 </html>
