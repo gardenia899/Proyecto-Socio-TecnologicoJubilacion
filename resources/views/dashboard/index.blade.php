@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/solicitud.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/expediente.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/trabajadores.css') }}">
+     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/trabajadores2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/prestaciones.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/secciones/reportes.css') }}">
@@ -374,7 +375,138 @@
     </div>
 </div>
 
+<div id="modalTrabajador" class="modal-overlay">
+    <div class="modal-container">
+        <aside class="modal-sidebar">
+            <span class="badge-new">Sigejub v1.0</span>
+            <h1>Registrar<br>Nuevo<br>Trabajador</h1>
+            <p>Complete el expediente institucional para iniciar el cálculo de antigüedad y estatus jubilatorio.</p>
+            
+            <div style="margin-top: auto; font-size: 0.75rem; color: #64748b;">
+                <i data-lucide="info" style="width: 14px; vertical-align: middle;"></i> 
+                Asegúrese de que la cédula sea exacta para evitar duplicados.
+            </div>
+        </aside>
 
+        <main class="modal-form-content">
+            <button class="btn-close-absolute" id="closeModal" type="button">&times;</button>
+            
+            <form id="formTrabajador">
+                @csrf <section class="form-section">
+                    <h3><i data-lucide="user"></i> Datos Personales</h3>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>CÉDULA DE IDENTIDAD</label>
+                            <input type="text" name="cedula" required placeholder="V-00000000">
+                        </div>
+                        <div class="input-group">
+                            <label>GÉNERO</label>
+                            <select name="genero" required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>NOMBRES</label>
+                            <input type="text" name="nombres" required>
+                        </div>
+                        <div class="input-group">
+                            <label>APELLIDOS</label>
+                            <input type="text" name="apellidos" required>
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>FECHA DE NACIMIENTO</label>
+                            <input type="date" name="fecha_nacimiento" required title="Necesario para calcular la edad automáticamente">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><i data-lucide="building"></i> Datos Institucionales</h3>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>CARGO ACTUAL</label>
+                            <input type="text" name="cargo" required>
+                        </div>
+                        <div class="input-group">
+                            <label>UNIDAD O DEPARTAMENTO</label>
+                            <input type="text" name="unidad_departamento" required>
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>GRADO / NIVEL</label>
+                            <input type="text" name="grado_nivel" placeholder="Ej: P1, B1..." required>
+                        </div>
+                        <div class="input-group">
+                            <label>FECHA DE INGRESO</label>
+                            <input type="date" name="fecha_ingreso" required title="Necesario para calcular antigüedad institucional">
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>AÑOS ADM. PÚBLICA (EXTERNO)</label>
+                            <input type="number" name="anos_servicio_externo" value="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>% ANTIGÜEDAD (OPCIONAL)</label>
+                            <input type="number" step="0.01" name="porcentaje_antiguedad" value="0">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><i data-lucide="graduation-cap"></i> Información Socio-Económica</h3>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>NIVEL DE INSTRUCCIÓN</label>
+                            <select name="nivel_instruccion">
+                                <option value="1">TSU</option>
+                                <option value="2">Licenciado / Ingeniero</option>
+                                <option value="3">Especialista</option>
+                                <option value="4">Magíster</option>
+                                <option value="5">Doctorado</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>NÚMERO DE CUENTA (BDV)</label>
+                            <input type="text" name="cuenta_bancaria" placeholder="0102..." pattern="\d{20}" title="Deben ser 20 dígitos">
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="input-group">
+                            <label>CANTIDAD DE HIJOS</label>
+                            <input type="number" name="numero_hijos" value="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label>HIJOS CON DISCAPACIDAD</label>
+                            <select name="hijos_discapacidad">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row-1">
+                        <div class="input-group">
+                            <label>% CAJA DE AHORRO</label>
+                            <input type="number" step="0.01" name="porcentaje_caja_ahorro" value="0">
+                        </div>
+                    </div>
+                </section>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="btnCancelar">Descartar</button>
+                    <button type="submit" class="btn-submit">Registrar Trabajador</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
 <!-- SECCIÓN 3: SOLICITUDES -->
 <div id="solicitudes" class="content-section">
     <header class="section-header">
@@ -1135,7 +1267,91 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('modalTrabajador');
+    const btnAbrir = document.querySelector('.btn-primary-dark'); // Botón "Agregar Trabajador"
+    const btnCerrar = document.getElementById('closeModal');
+    const btnCancelar = document.getElementById('btnCancelar');
+
+    // Función para abrir la modal
+    btnAbrir.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    // Función para cerrar
+    const cerrarModal = () => {
+        modal.style.display = 'none';
+    };
+
+    btnCerrar.addEventListener('click', cerrarModal);
+    btnCancelar.addEventListener('click', cerrarModal);
+
+    // Cerrar si hace clic fuera de la ventana blanca
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) cerrarModal();
+    });
+
+    /
+});
+
+  document.getElementById('formTrabajador').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const btnSubmit = document.querySelector('.btn-submit');
+
+    btnSubmit.disabled = true;
+    btnSubmit.innerText = 'Guardando...';
+
+    fetch("{{ route('trabajador') }}", {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+            'Accept': 'application/json'
+        }
+    })
+    .then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw data;
+        }
+
+        return data;
+    })
+    .then(data => {
+        alert(data.message);
+
+        document.getElementById('formTrabajador').reset();
+
+        location.reload();
+    })
+    .catch(error => {
+        console.error(error);
+
+        if (error.errors) {
+            let mensajes = '';
+
+            Object.values(error.errors).forEach(err => {
+                mensajes += err[0] + '\n';
+            });
+
+            alert(mensajes);
+        } else {
+            alert(error.message || 'Error interno del servidor');
+        }
+    })
+    .finally(() => {
+        btnSubmit.disabled = false;
+        btnSubmit.innerText = 'Registrar Trabajador';
+    });
+});
+</script>
+<script src="{{ asset('js/trabajador.js') }}"></script>
 <script src="{{ asset('js/sesion2.js') }}"></script>
+<script src="{{ asset('js/trabajador.js') }}"></script>
 <script src="{{ asset('js/tabla1.js') }}"></script>
 <script src="{{ asset('js/expedientelevel1.js') }}"></script>
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TrabajadorController;
 
 
 /*
@@ -50,3 +51,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/perfil', [UserController::class, 'index'])->name('usuarios.user');
 Route::put('/perfil/actualizar', [UserController::class, 'update'])->name('usuarios.update');
+
+/*
+|-----------------------------
+| Trabajador
+|-----------------------------
+*/
+// Ruta para ver la lista o el control de datos del usuario
+
+Route::post('/trabajadores', [TrabajadorController::class, 'store'])->name('trabajador');
