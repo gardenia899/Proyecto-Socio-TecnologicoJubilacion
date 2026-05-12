@@ -1292,7 +1292,7 @@
         if (e.target === modal) cerrarModal();
     });
 
-    /
+    
 });
 
   document.getElementById('formTrabajador').addEventListener('submit', function(e) {
